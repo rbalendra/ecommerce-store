@@ -1,0 +1,35 @@
+.nav {
+    display: flex;
+    height: 10vh;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: #282c34;
+    color: #fff;
+
+
+    &_group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1em;
+        padding: 1rem;
+    }
+
+    &_link {
+        text-decoration: none;
+        color: #61dafb;
+        font-size: 1.2rem;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+            color: #21a1f1;
+        }
+
+        &:visited {
+            color: #61dafb;
+            text-decoration: none;
+        }
+    }
+}
