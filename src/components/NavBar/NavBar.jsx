@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router';
 import classes from './NavBar.module.scss';
-import logo from '../../assets/keyduplogo.svg';
+import logo from '../../assets/images/keyduplogo.svg';
 import { BsCart4 } from 'react-icons/bs';
 
 const NavBar = () => {

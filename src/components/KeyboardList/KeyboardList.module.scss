@@ -1,0 +1,93 @@
+@use '../../styles/variables' as *;
+
+.keyboardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.keyboardCard {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+    height: 100%;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.imageContainer {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.productName {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: $primary;
+    font-weight: 600;
+}
+
+.productDescription {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+
+.productFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.productPrice {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: $primary;
+}
+
+.addToCartBtn {
+    background-color: $highlight;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken($highlight, 10%);
+    }
+}

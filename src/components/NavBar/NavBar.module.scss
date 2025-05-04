@@ -45,11 +45,10 @@
             position: absolute;
             width: 0;
             height: 4px;
-            bottom: -4px;
+            bottom: -10px;
             left: 0;
             background-color: $highlight;
             transition: width 0.3s ease;
-            border-radius: 0 0 0.4em 0;
         }
 
         &_group {
