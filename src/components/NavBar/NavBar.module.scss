@@ -1,35 +1,94 @@
+@use '../../styles/variables' as *;
+
+
 .nav {
     display: flex;
     height: 10vh;
     justify-content: space-between;
-    flex-direction: row;
     align-items: center;
     padding: 0 2rem;
-    background-color: #282c34;
-    color: #fff;
+    background-color: #F6F6F6;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 0 0 1em 1em;
+    border: 0.4px solid #dddddd;
 
-
-    &_group {
+    &_logo {
         display: flex;
-        flex-direction: row;
         align-items: center;
-        gap: 1em;
-        padding: 1rem;
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+    }
+
+    &_links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
     }
 
     &_link {
         text-decoration: none;
-        color: #61dafb;
-        font-size: 1.2rem;
+        color: $primary;
+        font-size: 1rem;
+        font-family: $font-family;
+        font-weight: 600;
         transition: color 0.3s ease-in-out;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
 
-        &:hover {
-            color: #21a1f1;
+        &:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 4px;
+            bottom: -4px;
+            left: 0;
+            background-color: $highlight;
+            transition: width 0.3s ease;
+            border-radius: 0 0 0.4em 0;
         }
 
-        &:visited {
-            color: #61dafb;
-            text-decoration: none;
+        &_group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1em;
+            padding: 1rem;
+        }
+
+        &:hover {
+            color: $primary;
+
+            &:after {
+                width: 100%;
+            }
+        }
+
+
+    }
+
+    &_cart {
+        justify-self: end;
+
+        .cart_link {
+            color: $primary;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: $highlight;
+            }
+
+            // &:global(.active) {
+            //     color: $tertiary;
+            // }
+        }
+
+        .cart_icon {
+            font-size: 1.9rem;
         }
     }
 }

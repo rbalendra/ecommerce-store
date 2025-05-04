@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
+import './App.scss';
 import { getAllProjects } from './services/project-services';
-import { BrowserRouter, Routes } from 'react-router';
+import { BrowserRouter, Routes, Route } from 'react-router';
 import NavBar from './components/NavBar/NavBar';
 import HomePage from './pages/HomePage/HomePage';
+import ShopPage from './pages/ShopPage/ShopPage';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
 	useEffect(() => {
@@ -13,8 +16,11 @@ function App() {
 		<>
 			<BrowserRouter>
 				<NavBar />
-				<HomePage />
-				<Routes></Routes>
+				<Routes>
+					<Route path='/' element={<HomePage />} />
+					<Route path='/ShopPage' element={<ShopPage />} />
+					<Route path='/*' element={<NotFound />} />
+				</Routes>
 			</BrowserRouter>
 		</>
 	);
