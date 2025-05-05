@@ -24,7 +24,11 @@ const Slider = () => {
 		loadFeaturedProducts(); // Call the function to load featured products
 	}, []);
 
-	// Automatically change slide every 5 seconds if there are multiple featured products.
+	//NOTE -  Automatically change slide every 5 seconds if there are more than > 1
+	// if (0+1) % 3 = 1 ---> sets the slide to [1] (second slide)
+	// if (1+1) % 3 = 2 ---> sets the slide to [2] (third slide)
+	// if (2+1) % 3 = 0 ---> sets the slide to [0] (first slide)
+	//which creates an infinite loop of slides
 	useEffect(() => {
 		if (featuredProducts.length > 1) {
 			const interval = setInterval(() => {
@@ -37,15 +41,11 @@ const Slider = () => {
 
 	const nextSlide = () => {
 		setCurrentSlide((prev) => (prev + 1) % featuredProducts.length);
-		// if (0+1) % 3 = 1 ---> goes to second slide
-		// if (1+1) % 3 = 2 ---> goes to third slide
-		// if (2+1) % 3 = 0 ---> goes to first slide
-		//which creates an infinite loop of slides
 	};
 
 	const prevSlide = () => {
-		setCurrentSlide((prev) =>
-			prev === 0 ? featuredProducts.length - 1 : prev - 1
+		setCurrentSlide(
+			(prev) => (prev === 0 ? featuredProducts.length - 1 : prev - 1) // if prev is 0, go to last slide, else go to previous slide
 		);
 	};
 
