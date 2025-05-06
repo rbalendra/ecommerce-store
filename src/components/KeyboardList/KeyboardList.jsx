@@ -15,6 +15,8 @@ const KeyboardList = ({ keyboardsData }) => {
 					<div className={styles.cardContent}>
 						<h2 className={styles.productName}>{keyboard.name}</h2>
 						<p className={styles.productDescription}>{keyboard.description}</p>
+						<p>{keyboard.variants.color}</p>
+						<p>{keyboard.variants.connection}</p>
 						<div className={styles.productFooter}>
 							<p className={styles.productPrice}>${keyboard.price}</p>
 							<button className={styles.addToCartBtn}>Add to Cart</button>
