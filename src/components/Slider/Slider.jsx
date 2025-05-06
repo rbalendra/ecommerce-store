@@ -2,11 +2,20 @@ import { useState, useEffect } from 'react';
 import styles from './Slider.module.scss';
 import { getFeaturedProducts } from '../../services/project-services';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { useCart } from '../../context/CartContextProvider';
+import { Link, useNavigate } from 'react-router';
 
 const Slider = () => {
 	const [featuredProducts, setFeaturedProducts] = useState([]); // Initialize with an empty array for featured products
 	const [loading, setLoading] = useState(true); // Loading state to show a loading message or spinner
 	const [currentSlide, setCurrentSlide] = useState(0); // State to track the current slide index
+	const { addToCart } = useCart();
+	const Navigate = useNavigate(); // Hook to programmatically navigate to different routes
+
+	const handleShopNow = (product) => {
+		addToCart(product); // Add the product to the cart using the addToCart function from CartContextProvider
+		Navigate('/ShopPage'); // Navigate to the cart page after adding the product
+	};
 
 	// Load featured products
 	useEffect(() => {
@@ -70,11 +79,13 @@ const Slider = () => {
 						}`}>
 						<div className={styles.imageContainer}>
 							{/* Try both imageUrl and featureUrl fields */}
-							<img
-								src={product.featureUrl || product.imageUrl}
-								alt={product.name}
-								className={styles.image}
-							/>
+							<Link to={`/product/${product.id}`}>
+								<img
+									src={product.featureUrl || product.imageUrl}
+									alt={product.name}
+									className={styles.image}
+								/>
+							</Link>
 						</div>
 
 						<div className={styles.content}>
@@ -83,7 +94,11 @@ const Slider = () => {
 								{product.description || 'Premium mechanical keyboard'}
 							</p>
 							<div className={styles.priceTag}>${product.price}</div>
-							<button className={styles.shopButton}>Shop Now</button>
+							<button
+								className={styles.shopButton}
+								onClick={() => handleShopNow(product)}>
+								Shop Now
+							</button>
 						</div>
 					</div>
 				))}
