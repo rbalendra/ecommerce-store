@@ -100,15 +100,20 @@ const Slider = () => {
 					</button>
 
 					<div className={styles.indicators}>
-						{featuredProducts.map((_, index) => (
-							<button
-								key={index}
-								className={`${styles.indicator} ${
-									index === currentSlide ? styles.active : ''
-								}`}
-								onClick={() => setCurrentSlide(index)}
-							/>
-						))}
+						{featuredProducts.map(
+							(
+								_,
+								index //_ is used to ignore the first argument (product) since we don't need it here
+							) => (
+								<button
+									key={index}
+									className={`${styles.indicator} ${
+										index === currentSlide ? styles.active : ''
+									}`}
+									onClick={() => setCurrentSlide(index)}
+								/>
+							)
+						)}
 					</div>
 				</>
 			)}
