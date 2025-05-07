@@ -6,30 +6,32 @@ import { BsCart4 } from 'react-icons/bs';
 
 const NavBar = () => {
 	return (
-		<nav className={classes.nav}>
-			<div className={classes.nav_logo}>
-				<NavLink to='/'>
-					<img src={logo} alt='KeydUp Logo' className={classes.logo} />
-				</NavLink>
-			</div>
+		<div className={classes.navWrapper}>
+			<nav className={classes.nav}>
+				<div className={classes.nav_logo}>
+					<NavLink to='/'>
+						<img src={logo} alt='KeydUp Logo' className={classes.logo} />
+					</NavLink>
+				</div>
 
-			<div className={classes.nav_links}>
-				<NavLink to='/' className={classes.nav_link}>
-					Home
-				</NavLink>
-				<NavLink to='/shopPage' className={classes.nav_link}>
-					Shop
-				</NavLink>
-				<NavLink to='/aboutpage' className={classes.nav_link}>
-					About
-				</NavLink>
-			</div>
-			<div className={classes.nav_cart}>
-				<NavLink to='/cart' className={classes.cart_link}>
-					<BsCart4 className={classes.cart_icon} />
-				</NavLink>
-			</div>
-		</nav>
+				<div className={classes.nav_links}>
+					<NavLink to='/' className={classes.nav_link}>
+						Home
+					</NavLink>
+					<NavLink to='/shopPage' className={classes.nav_link}>
+						Shop
+					</NavLink>
+					<NavLink to='/aboutpage' className={classes.nav_link}>
+						About
+					</NavLink>
+				</div>
+				<div className={classes.nav_cart}>
+					<NavLink to='/cart' className={classes.cart_link}>
+						<BsCart4 className={classes.cart_icon} />
+					</NavLink>
+				</div>
+			</nav>
+		</div>
 	);
 };
 

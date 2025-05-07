@@ -15,7 +15,7 @@ const ShopPage = () => {
 	return (
 		<div className={styles.shopContainer}>
 			<div className={styles.header}>
-				<h1>SHOP</h1>
+				<h1>Shop</h1>
 			</div>
 			{isLoading && (
 				<div className={styles.loadingContainer}>

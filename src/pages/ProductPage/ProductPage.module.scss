@@ -69,7 +69,8 @@ h1 {
     align-self: flex-start;
 
     &:hover {
-        background-color: darken($highlight, 10%);
+        background-color: $tertiary;
+        color: $primary;
     }
 }
 
