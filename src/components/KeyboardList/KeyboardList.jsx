@@ -68,7 +68,7 @@ const KeyboardList = ({ keyboardsData }) => {
 									</div>
 								</div>
 							)}
-
+							{/* //NOTE - renders the available connections */}
 							{connections.length > 0 && (
 								<div className={styles.variantInfo}>
 									<span className={styles.variantLabel}>Connection type:</span>
