@@ -2,7 +2,7 @@ import useQuery from '../../hooks/useQuery';
 import { getAllKeyboards } from '../../services/keyboard-services';
 import KeyboardList from '../../components/KeyboardList/KeyboardList';
 import styles from './ShopPage.module.scss';
-import { TrophySpin } from 'react-loading-indicators'; // Assuming you have a loading spinner component
+import { TrophySpin } from 'react-loading-indicators';
 
 const ShopPage = () => {
 	const {
@@ -29,6 +29,7 @@ const ShopPage = () => {
 			)}
 			{isFail && <p>Error: {error.message}</p>}
 			{isSuccess && <KeyboardList keyboardsData={keyboardsData} />}
+			{/* // passing the data to the KeyboardList component */}
 		</div>
 	);
 };

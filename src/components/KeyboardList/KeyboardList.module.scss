@@ -103,3 +103,46 @@
         border: 2px solid #999999;
     }
 }
+
+.stockInfo {
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.stockInfo {
+    font-size: 0.85rem;
+    color: red;
+    margin: 0.5rem 0;
+}
+
+.variantInfo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.variantLabel {
+    color: $primary;
+    margin-right: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+
+}
+
+.variantOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+}
+
+.variantTag {
+    background-color: $secondary;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: $primary;
+    border: 1px solid #ddd;
+}
