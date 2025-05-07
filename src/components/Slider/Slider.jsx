@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './Slider.module.scss';
-import { getFeaturedProducts } from '../../services/project-services';
+import { getFeaturedKeyboards } from '../../services/keyboard-services';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { useCart } from '../../context/CartContextProvider';
 import { Link, useNavigate } from 'react-router';
@@ -21,7 +21,7 @@ const Slider = () => {
 	useEffect(() => {
 		const loadFeaturedProducts = async () => {
 			try {
-				const data = await getFeaturedProducts(); // Fetch featured products from the API through project-services.js
+				const data = await getFeaturedKeyboards(); // Fetch featured products from the API through project-services.js
 				setFeaturedProducts(data); // Set the fetched data to state
 				setLoading(false); // Set loading to false after data is fetched
 			} catch (error) {

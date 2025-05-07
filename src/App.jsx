@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './App.scss';
-import { getAllProjects } from './services/project-services';
+import { getAllKeyboards } from './services/keyboard-services';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import NavBar from './components/NavBar/NavBar';
 import HomePage from './pages/HomePage/HomePage';
@@ -13,7 +13,7 @@ import Footer from './components/Footer/Footer'; // Importing the Footer compone
 
 function App() {
 	useEffect(() => {
-		getAllProjects().then(console.log);
+		getAllKeyboards().then(console.log);
 	}, []);
 
 	return (
