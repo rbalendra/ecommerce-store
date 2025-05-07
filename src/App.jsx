@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound/NotFound';
 import AboutPage from './pages/AboutPage/AboutPage';
 import CartContextProvider from '../src/context/CartContextProvider';
 import ProductPage from './pages/ProductPage/ProductPage'; // Importing the ProductPage component
+import Footer from './components/Footer/Footer'; // Importing the Footer component
 
 function App() {
 	useEffect(() => {
@@ -16,22 +17,24 @@ function App() {
 	}, []);
 
 	return (
-		<>
-			{' '}
+		<div className='appContainer'>
 			<CartContextProvider>
 				{/* Wrapping the entire app with CartContextProvider to provide cart context to all components */}
 				<BrowserRouter>
 					<NavBar />
-					<Routes>
-						<Route path='/' element={<HomePage />} />
-						<Route path='/ShopPage' element={<ShopPage />} />
-						<Route path='/AboutPage' element={<AboutPage />} />
-						<Route path='/product/:id' element={<ProductPage />} />
-						<Route path='/*' element={<NotFound />} />
-					</Routes>
+					<main>
+						<Routes>
+							<Route path='/' element={<HomePage />} />
+							<Route path='/ShopPage' element={<ShopPage />} />
+							<Route path='/AboutPage' element={<AboutPage />} />
+							<Route path='/product/:id' element={<ProductPage />} />
+							<Route path='/*' element={<NotFound />} />
+						</Routes>
+					</main>
+					<Footer />
 				</BrowserRouter>
 			</CartContextProvider>
-		</>
+		</div>
 	);
 }
 
