@@ -19,9 +19,6 @@ h1 {
     flex-direction: row;
     gap: 2rem;
 
-    @media (max-width: 768px) {
-        flex-direction: column;
-    }
 }
 
 .productImage {
@@ -57,20 +54,21 @@ h1 {
 }
 
 .addToCartBtn {
-    padding: 1rem 2rem;
-    background-color: $highlight;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    background-color: $tertiary;
+    color: $primary;
+    border: 1px solid $primary;
+    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     align-self: flex-start;
+    transition: background-color 0.3s ease;
+    border: 1px solid #dbdbdb;
 
     &:hover {
         background-color: $tertiary;
-        color: $primary;
+        border: 1px solid $primary;
     }
 }
 
@@ -85,4 +83,72 @@ h1 {
 
 .error {
     color: $highlight;
+}
+
+
+.variantSection {
+    margin-bottom: 1.5rem;
+
+    label {
+        color: $primary;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.variantOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    button {
+        background-color: $secondary;
+        padding: 0.4rem 1rem;
+        border-radius: 16px;
+        font-size: 0.9rem;
+        color: $primary;
+        border: 1px solid #ddd;
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e8e8e8;
+            border-color: #999999;
+        }
+
+        &.selected {
+            background-color: $tertiary;
+            border-color: $primary;
+            font-weight: 600;
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+.quantitySection {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+
+    label {
+        color: $primary;
+        font-weight: 600;
+    }
+
+    input {
+        width: 60px;
+        padding: 0.4rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    span {
+        font-size: 0.85rem;
+        color: #666;
+    }
 }
