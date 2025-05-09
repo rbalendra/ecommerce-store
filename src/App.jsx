@@ -12,9 +12,9 @@ import ProductPage from './pages/ProductPage/ProductPage'; // Importing the Prod
 import Footer from './components/Footer/Footer'; // Importing the Footer component
 
 function App() {
-	useEffect(() => {
-		getAllKeyboards().then(console.log);
-	}, []);
+	// useEffect(() => {
+	// 	getAllKeyboards().then(console.log);
+	// }, []);
 
 	return (
 		<div className='appContainer'>

@@ -9,9 +9,12 @@ const ProductPage = () => {
 	const [product, setProduct] = useState(null); // State to hold the product data
 	const [loading, setLoading] = useState(true); // State to manage loading state
 	const [error, setError] = useState(null); // State to manage error state
+
+	/* -------------------------------------------------------------------------- */
+
 	const { addToCart } = useCart(); // Get the addToCart function from the CartContextProvider
 
-	/* --------------------------- states for variants -------------------------- */
+	/* --------------------------- states for variants & quantity ----------------- */
 	const [selectedColor, setSelectedColor] = useState(null);
 	const [determinedConnection, setDeterminedConnection] = useState(null);
 	const [itemQuantity, setitemQuantity] = useState(1);
@@ -80,18 +83,31 @@ const ProductPage = () => {
 			return;
 		}
 
+		// const baseId = product.id;
+		// const baseName = product.name;
+		// const basePrice = product.price;
+		// const baseImageUrl = product.imageUrl;
+		// const baseDescription = product.description;
+
+		const { id, name, price, imageUrl, description } = product;
+
+		const variantId = id + '-' + selectedColor; //reason this is here is because to make the id unqique
+		const variantName =
+			name + ' (' + selectedColor + ', ' + determinedConnection + ')'; // so everyone can see what's added clearly
+
 		const cartItem = {
-			...product,
-			id: `${product.id}-${selectedColor}`, // unique key
-			name: `${product.name} (${selectedColor}, ${determinedConnection})`,
-			price: product.price, // or variant.price if you have it
+			id: variantId,
+			name: variantName,
+			price, // shorthand for price: price
+			imageUrl, // shorthand for imageUrl: imageUrl
+			description, // shorthand for description: description
 			selectedVariant: {
 				color: selectedColor,
 				connection: determinedConnection,
 			},
 		};
 
-		addToCart(cartItem, itemQuantity);
+		addToCart(cartItem, itemQuantity); // Add the item to the cart using the addToCart function from CartContextProvider
 		alert(`Added ${itemQuantity} × ${cartItem.name} to cart!`);
 	};
 
@@ -101,6 +117,13 @@ const ProductPage = () => {
 	if (!product) return <div className={styles.error}>Product not found</div>;
 
 	const uniqueColors = [...new Set(product.variants.map((v) => v.color))];
+
+	// Determine which stock number to display
+	const stockMessage = selectedColor
+		? `(${stock} in stock${
+				itemQuantity > 1 ? `, ${stock - itemQuantity} remaining` : ''
+		  })`
+		: 'Select a color to see stock';
 
 	return (
 		<div className={styles.productPage}>
@@ -153,11 +176,9 @@ const ProductPage = () => {
 							}
 							min='1'
 							max={stock}
+							disabled={!selectedColor}
 						/>
-						<span>
-							({stock} in stock
-							{itemQuantity > 1 ? `, ${stock - itemQuantity} remaining` : ''})
-						</span>
+						<span>{stockMessage}</span>
 					</div>
 
 					{/* add to cart */}

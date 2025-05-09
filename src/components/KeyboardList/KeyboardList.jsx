@@ -1,12 +1,19 @@
 import styles from './KeyboardList.module.scss';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useCart } from '../../context/CartContextProvider';
 
 const KeyboardList = ({ keyboardsData }) => {
 	const { addToCart } = useCart();
 	//NOTE -  this is a custom hook that we created to access the cart context. It returns the addToCart function from the CartContextProvider
+	const navigate = useNavigate(); //useNavigate is a hook that returns a function that lets you navigate programmatically
+	//NOTE - this is used to navigate to a different route in the app. It is used in the addToCart function to navigate to the producty page
 
-	//this function will process variant information for each keyboard
+	/* ----------------- function to handle nav to product page ----------------- */
+	const handleViewProduct = (keyboardId) => {
+		navigate(`/product/${keyboardId}`);
+	};
+
+	/* ---- this function will process variant information for each keyboard ---- */
 	const getVariantSummary = (keyboard) => {
 		// Get unique colors and connections
 		const colors = keyboard.variants.map((v) => v.color);
@@ -22,7 +29,7 @@ const KeyboardList = ({ keyboardsData }) => {
 
 		return { totalQuantity, colors, connections };
 	};
-
+	/* -------------------------------------------------------------------------- */
 	return (
 		<div className={styles.keyboardGrid}>
 			{keyboardsData.map((keyboard) => {
@@ -87,8 +94,8 @@ const KeyboardList = ({ keyboardsData }) => {
 								<p className={styles.productPrice}>${keyboard.price}</p>
 								<button
 									className={styles.addToCartBtn}
-									onClick={() => addToCart(keyboard)}>
-									Add to Cart
+									onClick={() => handleViewProduct(keyboard.id)}>
+									View Product
 								</button>
 							</div>
 						</div>
