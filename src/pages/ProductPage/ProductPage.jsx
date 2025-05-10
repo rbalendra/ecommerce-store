@@ -31,21 +31,18 @@ const ProductPage = () => {
 			setDeterminedConnection(null); //reset connection
 			setitemQuantity(1); //reset qty
 			setStock(0); //reset stock
-			try {
-				const data = await getKeyboardById(id);
-				setProduct(data);
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setLoading(false); //stop loading
-			}
+
+			getKeyboardById(id) //Async fetch
+				.then((data) => setProduct(data))
+				.catch((error) => setError(error.message))
+				.finally(() => setLoading(false));
 		};
 
 		fetchProduct(); // Call the fetchProduct function to fetch product data
 	}, [id]); // The useEffect hook will re-run whenever the id changes
 
 	/* -------------------------------------------------------------------------- */
-	//NOTE - useEffect here to update the available stock when a color or connection is selected
+	//NOTE - useEffect here to update the available stock when a color is selected
 	useEffect(() => {
 		if (!product || !selectedColor) {
 			//if we don't have data yet, reset and exit early
@@ -56,30 +53,30 @@ const ProductPage = () => {
 
 		//finding the variant that matches the selected color
 		const variant = product.variants.find((v) => v.color === selectedColor);
+		const newStock = variant ? variant.quantity : 0; //use variant quantity or 0
+		const newConnection = variant ? variant.connection : null; // use variant connection or null
 
-		const newStock = variant ? variant.quantity : 0;
-		//validating if there is a valid variant and use its quantity
-		const newConnection = variant ? variant.connection : null;
-
-		setStock(newStock);
-		setDeterminedConnection(newConnection);
+		setStock(newStock); //update available stock
+		setDeterminedConnection(newConnection); //update connection display
 
 		setitemQuantity((prevQty) => {
-			if (prevQty < 1) return 1;
-			if (prevQty > newStock) return newStock;
+			if (prevQty < 1) return 1; //ensuring that quantity is atleast 1
+			if (prevQty > newStock) return newStock; //stop the quantity at avail stock
 			return prevQty;
 		});
-	}, [product, selectedColor]);
+	}, [product, selectedColor]); //useEffect runs when the product load or color is picked
+
+	/* ------------- states for button press without selection ------------- */
+
+	const [errorMessage, setErrorMessage] = useState('');
+	const [successMessage, setSuccessMessage] = useState('');
 
 	/* ------------------------ add to cart functionality ----------------------- */
 	const handleAddToCart = () => {
+		setErrorMessage('');
+		setSuccessMessage('');
 		if (!selectedColor) {
-			alert('please select a color');
-			return;
-		}
-
-		if (itemQuantity < 1 || itemQuantity > stock) {
-			alert(`quantity must be between 1 and ${stock}`);
+			setErrorMessage('please select a color variation');
 			return;
 		}
 
@@ -89,18 +86,26 @@ const ProductPage = () => {
 		// const baseImageUrl = product.imageUrl;
 		// const baseDescription = product.description;
 
+		//destructured only the needed fields from product
 		const { id, name, price, imageUrl, description } = product;
 
 		const variantId = id + '-' + selectedColor; //reason this is here is because to make the id unqique
 		const variantName =
-			name + ' (' + selectedColor + ', ' + determinedConnection + ')'; // so everyone can see what's added clearly
+			name +
+			' ( ' +
+			selectedColor +
+			', ' +
+			'[' +
+			determinedConnection +
+			']' +
+			' )'; // so everyone can see what's added clearly
 
 		const cartItem = {
 			id: variantId,
 			name: variantName,
-			price, // shorthand for price: price
-			imageUrl, // shorthand for imageUrl: imageUrl
-			description, // shorthand for description: description
+			price,
+			imageUrl,
+			description,
 			selectedVariant: {
 				color: selectedColor,
 				connection: determinedConnection,
@@ -108,22 +113,22 @@ const ProductPage = () => {
 		};
 
 		addToCart(cartItem, itemQuantity); // Add the item to the cart using the addToCart function from CartContextProvider
-		alert(`Added ${itemQuantity} × ${cartItem.name} to cart!`);
+		setSuccessMessage(`Added ${itemQuantity} × ${cartItem.name} to cart!`); //success messaage
 	};
 
 	/* -------------------------------------------------------------------------- */
 	if (loading) return <div className={styles.loading}>Loading...</div>;
 	if (error) return <div className={styles.error}>Error: {error}</div>;
 	if (!product) return <div className={styles.error}>Product not found</div>;
+	/* -------------------------------------------------------------------------- */
 
 	const uniqueColors = [...new Set(product.variants.map((v) => v.color))];
-
 	// Determine which stock number to display
 	const stockMessage = selectedColor
 		? `(${stock} in stock${
 				itemQuantity > 1 ? `, ${stock - itemQuantity} remaining` : ''
 		  })`
-		: 'Select a color to see stock';
+		: 'Select a color variant to see available stock';
 
 	return (
 		<div className={styles.productPage}>
@@ -144,10 +149,14 @@ const ProductPage = () => {
 					<div className={styles.variantSection}>
 						<label>Color:</label>
 						<div className={styles.variantOptions}>
+							{/* mapping the available colors to create buttons */}
 							{uniqueColors.map((color) => (
 								<button
 									key={color}
-									onClick={() => setSelectedColor(color)}
+									onClick={() => {
+										setSelectedColor(color);
+										setErrorMessage('');
+									}}
 									className={selectedColor === color ? styles.selected : ''}>
 									{color}
 								</button>
@@ -169,11 +178,17 @@ const ProductPage = () => {
 							id='qty'
 							type='number'
 							value={itemQuantity}
-							onChange={(e) =>
-								setitemQuantity(
-									Math.min(Math.max(1, parseInt(e.target.value) || 1), stock)
-								)
-							}
+							onChange={(e) => {
+								const parsed = parseInt(e.target.value); //parse text input because they always strings
+								console.log(parsed);
+								let qty = isNaN(parsed) ? 1 : parsed; //if parsed is NaN then it will default to 1
+
+								if (qty > stock) {
+									// this stops the user from entering numbers more than stock
+									qty = stock;
+								}
+								setitemQuantity(qty);
+							}}
 							min='1'
 							max={stock}
 							disabled={!selectedColor}
@@ -181,11 +196,18 @@ const ProductPage = () => {
 						<span>{stockMessage}</span>
 					</div>
 
-					{/* add to cart */}
+					{/* Error and success messages */}
+					{errorMessage && (
+						<p className={styles.errorMessage}>{errorMessage}</p>
+					)}
+					{successMessage && (
+						<p className={styles.successMessage}>{successMessage}</p>
+					)}
+					{/* add to cart button */}
 					<button
 						className={styles.addToCartBtn}
 						onClick={handleAddToCart}
-						disabled={!selectedColor || stock === 0}>
+						disabled={selectedColor && stock === 0}>
 						Add to Cart
 					</button>
 				</div>

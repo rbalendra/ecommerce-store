@@ -72,6 +72,29 @@ h1 {
     }
 }
 
+
+
+.errorMessage {
+    color: crimson;
+    background-color: #ffebee;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    border: 2px solid crimson;
+}
+
+.successMessage {
+    color: #388e3c;
+    background-color: #e8f5e9;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    border: 2px solid #388e3c;
+}
+
+
 .loading,
 .error {
     display: flex;
@@ -109,13 +132,14 @@ h1 {
         border-radius: 16px;
         font-size: 0.9rem;
         color: $primary;
-        border: 1px solid #ddd;
+        border: 2px solid $tertiary;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: all 0.2s ease;
         cursor: pointer;
 
         &:hover {
             background-color: #e8e8e8;
-            border-color: #999999;
+            border-color: $primary;
         }
 
         &.selected {
