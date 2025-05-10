@@ -113,6 +113,8 @@ const ProductPage = () => {
 		};
 
 		addToCart(cartItem, itemQuantity); // Add the item to the cart using the addToCart function from CartContextProvider
+		setStock((prevStock) => Math.max(0, prevStock - itemQuantity));
+
 		setSuccessMessage(`Added ${itemQuantity} × ${cartItem.name} to cart!`); //success messaage
 	};
 

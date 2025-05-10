@@ -3,8 +3,10 @@ import { NavLink } from 'react-router';
 import classes from './NavBar.module.scss';
 import logo from '../../assets/images/keyduplogo.svg';
 import { BsCart4 } from 'react-icons/bs';
+import { useCart } from '../../context/CartContextProvider';
 
 const NavBar = () => {
+	const { cartQuantity } = useCart();
 	return (
 		<div className={classes.navWrapper}>
 			<nav className={classes.nav}>
@@ -27,7 +29,12 @@ const NavBar = () => {
 				</div>
 				<div className={classes.nav_cart}>
 					<NavLink to='/cart' className={classes.cart_link}>
-						<BsCart4 className={classes.cart_icon} />
+						<div className={classes.cart_container}>
+							<BsCart4 className={classes.cart_icon} />
+							{cartQuantity > 0 && (
+								<span className={classes.cart_count}>{cartQuantity}</span>
+							)}
+						</div>
 					</NavLink>
 				</div>
 			</nav>

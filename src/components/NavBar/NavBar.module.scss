@@ -95,3 +95,24 @@
         }
     }
 }
+
+
+.cart_container {
+    position: relative;
+}
+
+.cart_count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: $highlight;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}

@@ -2,30 +2,67 @@ import { createContext, useState, useContext } from 'react';
 
 const CartContext = createContext(); //creating a new context object
 
+/* -------------------------------------------------------------------------- */
 export const CartContextProvider = ({ children }) => {
 	const [cartItems, setCartItems] = useState([]); //state to hold cart items
-	console.log('Current cart items:', cartItems);
+	// console.log('Current cart items:', cartItems);
 
-	const addToCart = (product) => {
+	// get the total quantity of items in the cart
+	let cartQuantity = 0;
+	cartItems.forEach((item) => {
+		cartQuantity += item.quantity;
+	});
+
+	const addToCart = (product, quantity = 1) => {
 		setCartItems((prevItems) => {
 			const existingItem = prevItems.find((item) => item.id === product.id); //comparing id to see if the poduct is already in the cart
-			console.log('Item already exists in cart?', existingItem ? 'Yes' : 'No');
+			// console.log('Item already exists in cart?', existingItem ? 'Yes' : 'No');
 
 			//NOTE - we map through prevItems and if the item is found then increase the quantity to 1 and return other items unchanged
 			if (existingItem) {
 				return prevItems.map((item) =>
 					item.id === product.id
-						? { ...item, quantity: item.quantity + 1 }
+						? { ...item, quantity: item.quantity + quantity }
 						: item
 				);
 			} else {
-				return [...prevItems, { ...product, quantity: 1 }]; //adding new product qty as 1
+				return [...prevItems, { ...product, quantity }]; //adding new product qty as 1
 			}
 		});
 	};
 
-	const contextValue = { cartItems, addToCart }; //creating a context value object to pass to the provider
-	console.log('Providing context with value:', contextValue);
+	/* -------------------------- remove cart function -------------------------- */
+	const removeFromCart = (productId) => {
+		setCartItems((prevItems) =>
+			prevItems.filter((item) => item.id !== productId)
+		);
+	};
+
+	/* ----------------------------- update quantity ---------------------------- */
+	const updateQuantity = (productId, quantity) => {
+		setCartItems((prevItems) =>
+			prevItems.map((item) =>
+				item.id === productId ? { ...item, quantity } : item
+			)
+		);
+	};
+
+	/* ------------------------------- clear cart ------------------------------- */
+	const clearCart = () => {
+		setCartItems([]);
+	};
+
+	/* -------------------------------------------------------------------------- */
+
+	const contextValue = {
+		cartItems,
+		cartQuantity,
+		addToCart,
+		removeFromCart,
+		updateQuantity,
+		clearCart,
+	};
+	// console.log('Providing context with value:', contextValue);
 
 	return (
 		<CartContext.Provider value={contextValue}>
