@@ -2,18 +2,15 @@ import { useState, useEffect } from 'react';
 import styles from './Slider.module.scss';
 import { getFeaturedKeyboards } from '../../services/keyboard-services';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import { useCart } from '../../context/CartContextProvider';
 import { Link, useNavigate } from 'react-router';
 
 const Slider = () => {
 	const [featuredProducts, setFeaturedProducts] = useState([]); // Initialize with an empty array for featured products
 	const [loading, setLoading] = useState(true); // Loading state to show a loading message or spinner
 	const [currentSlide, setCurrentSlide] = useState(0); // State to track the current slide index
-	const { addToCart } = useCart();
 	const Navigate = useNavigate(); // Hook to programmatically navigate to different routes
 
-	const handleShopNow = (product) => {
-		addToCart(product); // Add the product to the cart using the addToCart function from CartContextProvider
+	const handleShopNow = () => {
 		Navigate('/ShopPage'); // Navigate to the cart page after adding the product
 	};
 
@@ -33,31 +30,33 @@ const Slider = () => {
 		loadFeaturedProducts(); // Call the function to load featured products
 	}, []);
 
-	//NOTE -  Automatically change slide every 5 seconds if there are more than > 1
+	/* ---------- Auto slide every 5 seconds if there are more than > 2 --------- */
+
 	// if (0+1) % 3 = 1 ---> sets the slide to [1] (second slide)
 	// if (1+1) % 3 = 2 ---> sets the slide to [2] (third slide)
 	// if (2+1) % 3 = 0 ---> sets the slide to [0] (first slide)
-	//which creates an infinite loop of slides
+
 	useEffect(() => {
-		if (featuredProducts.length > 1) {
-			const interval = setInterval(() => {
-				setCurrentSlide((prev) => (prev + 1) % featuredProducts.length);
-			}, 5000);
+		if (featuredProducts.length < 2) return; // stops if less than 2 slides
 
-			return () => clearInterval(interval); //clear the interval on component unmount or when featuredProducts changes
-		}
-	}, [featuredProducts.length]); // Dependency array to run effect when featuredProducts.length changes
+		const interval = setInterval(() => {
+			setCurrentSlide((prev) => (prev + 1) % featuredProducts.length);
+		}, 5000);
 
+		return () => clearInterval(interval); //clear the interval on component unmount or when featuredProducts changes
+	}, [featuredProducts.length]); // re-run useEffect only when featuredProducts.length changes
+
+	/* ------------------------------ to the right ------------------------------ */
 	const nextSlide = () => {
 		setCurrentSlide((prev) => (prev + 1) % featuredProducts.length);
 	};
-
+	/* ------------------------------- to the left ------------------------------ */
 	const prevSlide = () => {
 		setCurrentSlide(
-			(prev) => (prev === 0 ? featuredProducts.length - 1 : prev - 1) // if prev is 0, go to last slide, else go to previous slide
+			(prev) => (prev === 0 ? featuredProducts.length - 1 : prev - 1) // if prev is 0, go to last slide in array, else go to previous slide
 		);
 	};
-
+	/* ----------------------------- some safeguards ---------------------------- */
 	if (loading) {
 		return <div className={styles.loading}>Loading...</div>;
 	}
@@ -67,9 +66,10 @@ const Slider = () => {
 			<div className={styles.noFeatured}>No featured products available</div>
 		);
 	}
-
+	/* -------------------------------------------------------------------------- */
 	return (
 		<div className={styles.slider}>
+			{/* rendering all slides */}
 			<div className={styles.slides}>
 				{featuredProducts.map((product, index) => (
 					<div
@@ -78,7 +78,7 @@ const Slider = () => {
 							index === currentSlide ? styles.active : ''
 						}`}>
 						<div className={styles.imageContainer}>
-							{/* Try both imageUrl and featureUrl fields */}
+							{/* Try both imageUrl and featureUrl fields incase one is not working*/}
 							<Link to={`/product/${product.id}`}>
 								<img
 									src={product.featureUrl || product.imageUrl}
@@ -96,14 +96,14 @@ const Slider = () => {
 							<div className={styles.priceTag}>${product.price}</div>
 							<button
 								className={styles.shopButton}
-								onClick={() => handleShopNow(product)}>
+								onClick={() => handleShopNow()}>
 								Shop Now
 							</button>
 						</div>
 					</div>
 				))}
 			</div>
-
+			{/* only show arrows if more than one slide */}
 			{featuredProducts.length > 1 && (
 				<>
 					<button className={styles.arrowLeft} onClick={prevSlide}>
@@ -113,22 +113,17 @@ const Slider = () => {
 					<button className={styles.arrowRight} onClick={nextSlide}>
 						<BsChevronRight />
 					</button>
-
+					{/* slide indicator buttons */}
 					<div className={styles.indicators}>
-						{featuredProducts.map(
-							(
-								_,
-								index //_ is used to ignore the first argument (product) since we don't need it here
-							) => (
-								<button
-									key={index}
-									className={`${styles.indicator} ${
-										index === currentSlide ? styles.active : ''
-									}`}
-									onClick={() => setCurrentSlide(index)}
-								/>
-							)
-						)}
+						{featuredProducts.map((product, index) => (
+							<button
+								key={product.id}
+								className={`${styles.indicator} ${
+									index === currentSlide ? styles.active : ''
+								}`}
+								onClick={() => setCurrentSlide(index)}
+							/>
+						))}
 					</div>
 				</>
 			)}

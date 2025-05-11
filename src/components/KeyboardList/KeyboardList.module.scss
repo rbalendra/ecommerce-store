@@ -25,7 +25,7 @@
 
     &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 2px 4px $tertiary
+        box-shadow: 0 2px 4px $highlight;
     }
 }
 
@@ -101,7 +101,7 @@
 
     &:hover {
 
-        border: 1px solid $primary;
+        border: 2px solid $primary;
     }
 }
 

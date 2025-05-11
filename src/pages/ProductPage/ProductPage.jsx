@@ -3,8 +3,10 @@ import { useParams } from 'react-router';
 import { getKeyboardById } from '../../services/keyboard-services';
 import { useCart } from '../../context/CartContextProvider';
 import styles from './ProductPage.module.scss';
+import { Link, useNavigate } from 'react-router';
 
 const ProductPage = () => {
+	const navigate = useNavigate();
 	const { id } = useParams(); // Get the product ID from the URL parameters
 	const [product, setProduct] = useState(null); // State to hold the product data
 	const [loading, setLoading] = useState(true); // State to manage loading state
@@ -89,16 +91,8 @@ const ProductPage = () => {
 		//destructured only the needed fields from product
 		const { id, name, price, imageUrl, description } = product;
 
-		const variantId = id + '-' + selectedColor; //reason this is here is because to make the id unqique
-		const variantName =
-			name +
-			' ( ' +
-			selectedColor +
-			', ' +
-			'[' +
-			determinedConnection +
-			']' +
-			' )'; // so everyone can see what's added clearly
+		const variantId = id + '-' + selectedColor; //reason this is here is because to make the id for selected variant item
+		const variantName = name; // so everyone can see what's added clearly
 
 		const cartItem = {
 			id: variantId,
@@ -110,9 +104,10 @@ const ProductPage = () => {
 				color: selectedColor,
 				connection: determinedConnection,
 			},
+			stock: stock,
 		};
 
-		addToCart(cartItem, itemQuantity); // Add the item to the cart using the addToCart function from CartContextProvider
+		addToCart(cartItem, itemQuantity); // Add the item to the cart using the addToCart function from CartContextProvider to be used in other componetnts
 		setStock((prevStock) => Math.max(0, prevStock - itemQuantity));
 
 		setSuccessMessage(`Added ${itemQuantity} × ${cartItem.name} to cart!`); //success messaage
@@ -123,6 +118,13 @@ const ProductPage = () => {
 	if (error) return <div className={styles.error}>Error: {error}</div>;
 	if (!product) return <div className={styles.error}>Product not found</div>;
 	/* -------------------------------------------------------------------------- */
+
+	const handleShopNow = () => {
+		navigate('/ShopPage'); // Navigate to the shop page after adding the product
+	};
+	const handleCartNow = () => {
+		navigate('/Cart'); // Navigate to the cart page after adding the product
+	};
 
 	const uniqueColors = [...new Set(product.variants.map((v) => v.color))];
 	// Determine which stock number to display
@@ -206,12 +208,24 @@ const ProductPage = () => {
 						<p className={styles.successMessage}>{successMessage}</p>
 					)}
 					{/* add to cart button */}
-					<button
-						className={styles.addToCartBtn}
-						onClick={handleAddToCart}
-						disabled={selectedColor && stock === 0}>
-						Add to Cart
-					</button>
+					<div className={styles.buttonContainer}>
+						<button
+							className={`${styles.addToCartBtn} ${styles.primary}`}
+							onClick={handleAddToCart}
+							disabled={selectedColor && stock === 0}>
+							Add to Cart
+						</button>
+						<button
+							className={styles.addToCartBtn}
+							onClick={() => handleShopNow()}>
+							Keep Shopping
+						</button>
+						<button
+							className={styles.addToCartBtn}
+							onClick={() => handleCartNow()}>
+							Go to cart
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

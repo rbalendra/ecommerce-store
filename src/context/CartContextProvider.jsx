@@ -15,7 +15,7 @@ export const CartContextProvider = ({ children }) => {
 
 	const addToCart = (product, quantity = 1) => {
 		setCartItems((prevItems) => {
-			const existingItem = prevItems.find((item) => item.id === product.id); //comparing id to see if the poduct is already in the cart
+			const existingItem = prevItems.find((item) => item.id === product.id); //comparing id to see if the product is already in the cart
 			// console.log('Item already exists in cart?', existingItem ? 'Yes' : 'No');
 
 			//NOTE - we map through prevItems and if the item is found then increase the quantity to 1 and return other items unchanged
@@ -39,13 +39,12 @@ export const CartContextProvider = ({ children }) => {
 	};
 
 	/* ----------------------------- update quantity ---------------------------- */
-	const updateQuantity = (productId, quantity) => {
-		setCartItems((prevItems) =>
-			prevItems.map((item) =>
+	const updateQuantity = (productId, quantity) =>
+		setCartItems((items) =>
+			items.map((item) =>
 				item.id === productId ? { ...item, quantity } : item
 			)
 		);
-	};
 
 	/* ------------------------------- clear cart ------------------------------- */
 	const clearCart = () => {

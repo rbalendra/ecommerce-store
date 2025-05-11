@@ -5,6 +5,7 @@ import styles from './ShopPage.module.scss';
 import { TrophySpin } from 'react-loading-indicators';
 
 const ShopPage = () => {
+	/* ------ here we are using the custom hook useQuery to fetch keyboards ----- */
 	const {
 		data: keyboardsData,
 		error,
