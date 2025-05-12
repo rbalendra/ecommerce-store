@@ -16,7 +16,7 @@ function App() {
 		<div className='appContainer'>
 			<CartContextProvider>
 				{/* Wrapping the entire app with CartContextProvider to provide cart context to all components */}
-				<BrowserRouter>
+				<BrowserRouter basename='/ecommerce-store'>
 					<NavBar />
 					<main>
 						<Routes>
