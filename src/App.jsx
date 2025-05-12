@@ -9,6 +9,7 @@ import CartContextProvider from '../src/context/CartContextProvider';
 import ProductPage from './pages/ProductPage/ProductPage';
 import Footer from './components/Footer/Footer';
 import CartPage from './pages/CartPage/CartPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 							<Route path='/AboutPage' element={<AboutPage />} />
 							<Route path='/product/:id' element={<ProductPage />} />
 							<Route path='/cart' element={<CartPage />} />
+							<Route path='/payment' element={<PaymentPage />} />
 							<Route path='/*' element={<NotFound />} />
 						</Routes>
 					</main>

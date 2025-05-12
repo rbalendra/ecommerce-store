@@ -63,22 +63,21 @@ h1 {
 }
 
 .addToCartBtn {
-    padding: 0.5rem 1rem;
+    display: inline-block;
     background-color: $tertiary;
     color: $primary;
-    border: 1px solid $primary;
-    border-radius: 10px;
-    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
     font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: 1px solid #dbdbdb;
-    min-width: 120px;
-    text-align: center;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 
     &:hover {
-        background-color: $tertiary;
+        transform: translateY(-2px);
         border: 2px solid $primary;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
 
     // Change "& .primary" to "&.primary" (remove the space)
@@ -86,10 +85,14 @@ h1 {
         background-color: #e8f5e9;
         color: $primary;
         border: 2px solid #388e3c;
+        transition: all 0.2s ease;
 
         &:hover {
-            background-color: $tertiary;
-            border: 2px solid $primary;
+            transform: translateY(-2px);
+            background-color: #388e3c;
+            color: #e8f5e9;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
     }
 }

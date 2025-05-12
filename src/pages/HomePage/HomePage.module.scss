@@ -5,5 +5,25 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+.aboutSection {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h2 {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    h3 {
+        margin: 1.5rem 0 0.5rem;
+    }
+
+    p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
 }

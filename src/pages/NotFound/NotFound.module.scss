@@ -1,0 +1,64 @@
+@use '../../styles/variables' as *;
+
+.notFoundContainer {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eaeaea;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: $primary;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: $highlight;
+    }
+}
+
+.message {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.errorCode {
+    font-size: 7rem;
+    font-weight: bold;
+    color: rgba($highlight, 0.15);
+    margin-bottom: 1.5rem;
+}
+
+.returnButton {
+    display: inline-block;
+    background-color: $tertiary;
+    color: $primary;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+
+    &:hover {
+        transform: translateY(-2px);
+        border: 2px solid $primary;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+}

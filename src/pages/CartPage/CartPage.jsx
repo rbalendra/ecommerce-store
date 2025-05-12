@@ -1,8 +1,10 @@
 import styles from './CartPage.module.scss';
 import { Link } from 'react-router';
 import { useCart } from '../../context/CartContextProvider';
+import { useNavigate } from 'react-router';
 
 const CartPage = () => {
+	const navigate = useNavigate();
 	const { cartItems, updateQuantity, clearCart } = useCart();
 
 	/* -------------------------- calculate total price ------------------------- */
@@ -111,7 +113,11 @@ const CartPage = () => {
 						Clear Cart
 					</button>
 					{/*--------------------------- checkout to payments page --------------------------*/}
-					<button className={styles.checkoutButton}>Proceed to Checkout</button>
+					<button
+						className={styles.checkoutButton}
+						onClick={() => navigate('/payment')}>
+						Proceed to Checkout
+					</button>
 				</div>
 			</div>
 

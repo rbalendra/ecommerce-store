@@ -28,17 +28,21 @@
     }
 
     .shopButton {
-        padding: 0.8rem 1.5rem;
+        display: inline-block;
         background-color: $tertiary;
         color: $primary;
-        border-radius: 4px;
-        font-weight: 600;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
         text-decoration: none;
+        font-weight: 600;
+        margin-top: 1rem;
         transition: all 0.3s ease;
+        border: 2px solid transparent;
 
         &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid $primary;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
     }
 }
@@ -224,7 +228,6 @@
     transition: all 0.3s ease;
     cursor: pointer;
     padding: 1rem 1.5rem;
-    padding: 1rem 1.5rem;
     border-radius: 10px;
     font-weight: 600;
 
@@ -236,17 +239,19 @@
 
 .checkoutButton {
     flex: 2;
-    background: $tertiary;
+    background-color: $tertiary;
     color: $primary;
-    cursor: pointer;
     padding: 1rem 1.5rem;
-    border-radius: 10px;
+    border-radius: 8px;
+    text-decoration: none;
     font-weight: 600;
-    border: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 
     &:hover {
+        transform: translateY(-2px);
         border: 2px solid $primary;
-        background-color: $tertiary;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
 }
 
