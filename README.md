@@ -1,12 +1,13 @@
-# React + Vite
+# React e-cShop Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[](https://github.com/nology-tech/chicago-consultancy/tree/main/projects/eShop#react-e-cshop-website)
 
-Currently, two official plugins are available:
+## Outline
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[](https://github.com/nology-tech/chicago-consultancy/tree/main/projects/eShop#outline)
 
-## Expanding the ESLint configuration
+This project is designed to reinforce your React learnings and make sure that you are comfortable with most aspect of the framework. With this project you will practice how to:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Fetch Data within a React App
+- Use react-router
+- Use Firebase/Firestore
